@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Title of the document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <fb:login-button
+      scope="public_profile,email,instagram_basic,instagram_manage_comments"
+      onlogin="checkLoginState();">
+    </fb:login-button>
+  </div>
+  <br />
+  <div class='token'>
+    token here
+  </div>
+</body>
+
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '171538199888992',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.12'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      $('.token').html(response.authResponse.accessToken)
+      console.log('response = ', JSON.stringify(response, null, 2))
+    });
+  }
+</script>
+</html>
